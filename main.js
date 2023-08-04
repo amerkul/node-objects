@@ -57,5 +57,9 @@ schema.rules.push(allPropertiesWritable);
 console.log(validateObject(person, schema));
 console.log(validateObject(user, schema));
 
+const n = [1,4,5,6,8,9]
+const klone = deepCloneObject(n);
+
+console.log(klone)
 
 

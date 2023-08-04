@@ -10,8 +10,8 @@ const person = {
             throw new Error("Invalid infoObject");
         }
         for (let key of Object.getOwnPropertyNames(infoObject)) {
-            if (typeof this[key] !== undefined) {
-                Object.defineProperty(person, key, {value: infoObject[key]});
+            if (typeof this[key] !== undefined && this[key].writable) {
+                this[key] = infoObject[key];
             }
         }
     },

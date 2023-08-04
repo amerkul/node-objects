@@ -12,9 +12,6 @@ const deepCloneObject = function cloneOject(obj) {
     }
     const clone = Array.isArray(obj) ? [] : {}
     const propertyNames = Object.getOwnPropertyNames(obj);
-    if (Array.isArray(obj)) {
-        propertyNames.pop();
-    } 
     for (let i = 0; i < propertyNames.length; i++) {
         let property = propertyNames[i];
         let descriptor = Object.getOwnPropertyDescriptor(obj, property)
