@@ -6,7 +6,7 @@ import { bankAccount } from "./domain/bank-account.js";
 import { transfer } from "./fn/bank-transfer-fn.js";
 import { createImmutableObject } from "./fn/immutable-fn.js";
 import { observeObject } from "./fn/observe-fn.js";
-import { deepCloneObject } from "./fn/deep-clone-fn.js";
+import { deepCloneObject, widthDeepClone } from "./fn/deep-clone-fn.js";
 import { schema, schemaProperty, allPropertiesWritable } from "./domain/schema.js";
 import { validateObject } from "./fn/validate-fn.js";
 
@@ -57,9 +57,32 @@ schema.rules.push(allPropertiesWritable);
 console.log(validateObject(person, schema));
 console.log(validateObject(user, schema));
 
-const n = [1,4,5,6,8,9]
-const klone = deepCloneObject(n);
+const n = [1,4,5,6,8,9];
+const klone = widthDeepClone(n);
 
-console.log(klone)
+console.log(klone);
+klone[1] = 100000;
+console.log(n);
+console.log(klone);
+
+const a = {
+    b: 1,
+    c: [{c:3},2,3,4],
+    f: {
+        h: 1,
+        k: {
+            kk: 10
+        }
+    }
+}
+
+const aklone = widthDeepClone(a);
+console.log(Object.getOwnPropertyDescriptors(aklone));
+aklone.b = 100000;
+aklone.c[2] = 100000;
+aklone.f.h = 393939;
+console.log(Object.getOwnPropertyDescriptors(a));
+console.log(Object.getOwnPropertyDescriptors(aklone));
+
 
 
