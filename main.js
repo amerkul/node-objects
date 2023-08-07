@@ -83,6 +83,8 @@ aklone.c[2] = 100000;
 aklone.f.h = 393939;
 console.log(Object.getOwnPropertyDescriptors(a));
 console.log(Object.getOwnPropertyDescriptors(aklone));
+console.log(a);
+console.log(aklone);
 
 
 

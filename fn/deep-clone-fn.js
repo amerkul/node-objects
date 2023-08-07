@@ -1,3 +1,5 @@
+import get from "../node_modules/lodash/get.js";
+
 const defineNewProperty = (clone, propertyName, descriptor) => {
     Object.defineProperty(
         clone, 
@@ -34,10 +36,7 @@ const widthDeepClone = (obj) => {
         let path = queue.shift();
         let paths = path.split(".");
         let property = paths.pop();
-        let current = obj;
-        for (let path of paths) {
-            current = current[path];
-        }
+        let current = paths.length === 0 ? obj : get(obj, paths);
         let descriptor = Object.getOwnPropertyDescriptor(current, property);
         if (typeof current[property] === "object" && current[property] !== null) {
             descriptor.value = Array.isArray(current[property]) ? [] : {};
@@ -45,10 +44,7 @@ const widthDeepClone = (obj) => {
             .map((value) => [path, value].join("."));
             queue.push(...properties);
         }
-        current = clone;
-        for (let path of paths) {
-            current = current[path];
-        }
+        current = paths.length === 0 ? clone : get(clone, paths);
         defineNewProperty(current, property, descriptor);
     }
     return clone;
